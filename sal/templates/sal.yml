@@ -1,0 +1,57 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: macadmins-sal
+  namespace: wksmgmt
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: macadmins-sal
+      labels:
+        app: macadmins-sal
+    spec:
+      containers:
+        - image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+          name: {{ .Values.name | quote }}
+          env:
+            - name: DOCKER_SAL_TZ
+              value: {{ .Values.DOCKER_SAL_TZ | quote }}
+            - name: DOCKER_SAL_LANG
+              value: {{ .Values.DOCKER_SAL_LANG | quote }}
+            - name: DOCKER_SAL_DISPLAY_NAME
+              value: {{ .Values.DOCKER_SAL_DISPLAY_NAME | quote }}
+            - name:  DOCKER_SAL_DEBUG
+              value: {{ .Values.DOCKER_SAL_DEBUG | quote }}
+            - name: DB_NAME
+              value: {{ .Values.sal_db_name | quote }}
+            - name: DB_USER
+              value: {{ .Values.sal_db_user | quote }}
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: sal-secrets
+                  key: sal_db_pass
+            - name: ADMIN_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: sal-secrets
+                  key: sal_admin_pass
+            - name: DB_PORT_5432_TCP_ADDR
+              value: {{ .Values.sal_db_address | quote }}
+            - name: DB_PORT_5432_TCP_PORT
+              value: {{ .Values.sal_db_port | quote  }}
+          ports:
+            - containerPort: 8000
+      # if we want to persist the state of the SAL Reporting plugins configration across app-scaling or restarts
+      # persist the plugin config to PV's
+      #     volumeMounts:
+      #     - name: sal-pluginz
+      #       mountPath: /home/docker/macadmins-sal/plugins
+      # volumes:
+      #   -
+      #     name: sal-pluginz
+      #     persistentVolumeClaim:
+      #       claimName: sal-pluginz-pv
+---

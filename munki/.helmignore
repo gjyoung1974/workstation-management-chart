@@ -1,0 +1,5 @@
+.git
+# example production yaml
+values-production.yaml
+# values.yaml
+volumes.yaml

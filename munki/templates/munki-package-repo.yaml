@@ -1,0 +1,46 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: macadmins-munki-web
+  namespace: wksmgmt
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: macadmins-munki-web
+      labels:
+        app: macadmins-munki-web
+    spec:
+      containers:
+        - image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+          name: macadmins-munki-web
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - name: munki-repo
+            mountPath: /etc/nginx/html/munki_repo
+        - image: "hermsi/alpine-sshd"
+          name: munki-sshfs
+          env:
+            - name: ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: munki-secrets
+                  key: munki-repo-sshfs-pass
+            - name: ROOT_AUTHORIZED_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: munki-secrets
+                  key: munki-repo-sshfs-authorized-key
+          ports:
+            - containerPort: 22
+          volumeMounts:
+          - name: munki-repo
+            mountPath: /munki_repo
+      volumes:
+        -
+          name: munki-repo
+          persistentVolumeClaim:
+            claimName: munki-repo-pv
+---

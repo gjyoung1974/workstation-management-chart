@@ -1,0 +1,20 @@
+name: munki
+version: 2.0.1
+appVersion: 4.9.6
+description: The Munki Project is home to several projects that are focused on improving the experience of managing OS X for both the admin and the end user. Munki is surrounded by a vibrant community that is passionate about the craft of managing OS X and the services that surround it
+icon: https://avatars0.githubusercontent.com/u/8491458?s=200&v=4
+keywords:
+- workstation-managment
+- macOS
+- fleet-management
+- patching
+- security
+- enterprise-app-store
+home: https://www.munki.org/munki
+sources:
+- https://github.com/munki/munki
+maintainers:
+- name: gjyoung1974
+  email: gjyoung1974@gmail.com
+engine: gotpl
+

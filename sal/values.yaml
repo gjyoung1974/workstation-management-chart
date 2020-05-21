@@ -1,0 +1,20 @@
+## SAL Reporting properties
+image: "macadmins/sal"
+imageTag: "latest"
+name: "sal"
+DOCKER_SAL_TZ: 'America/Los_Angeles'
+DOCKER_SAL_LANG: 'en_US'
+DOCKER_SAL_DISPLAY_NAME: 'ACME Workstation Management - DEV'
+DOCKER_SAL_DEBUG: 'false'
+DB_NAME: 'saldb'
+DB_USER: 'saldbuser'
+DB_PASS: someAwesomePassword
+ADMIN_PASS: someAwesomePassword
+
+# PostGres database properties
+sal_db_name: saldb
+sal_db_user: saldbuser
+sal_db_pass: someAwesomePassword
+sal_db_address: sal-postgresql.wksmgmt
+sal_db_port: 5432
+sal_admin_pass: someAwesomePassword

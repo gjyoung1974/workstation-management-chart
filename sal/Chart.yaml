@@ -1,0 +1,20 @@
+name: sal
+version: 2.0.1
+appVersion: 4.9.6
+description: MacAdmin's Munki Package Management and MacAdmin's SAL Reporting for Macbook Fleet Management
+icon: https://avatars0.githubusercontent.com/u/8491458?s=200&v=4
+keywords:
+- munki
+- sal
+- workstation-management
+- fleet-manangement
+- macOS
+- patching
+- enteprise-app-store
+home: https://www.munki.org/
+sources:
+- https://github.com/munki
+maintainers:
+- name: gjyoung1974
+  email: gjyoung1974@gmail.com
+engine: gotpl

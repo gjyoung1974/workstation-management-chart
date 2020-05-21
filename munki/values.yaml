@@ -1,0 +1,78 @@
+## macadmins/munki container
+image: "macadmins/munki"
+imageTag: "latest"
+
+# SSH Password
+munki_repo_sshfs_pass: someAwesomePassword
+
+# SSH authorized password
+munki_repo_sshfs_authorized_key: ssh-rsa AAAAB3N... {replace with your public key}
+
+# imagePullPolicy: "IfNotPresent"
+# imagePullSecrets: myregistrykey
+
+
+
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  # existingClaim:
+
+  ## Munki Packages Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+    storageClass: "-"
+    accessModes: ReadWriteOnce
+    size: 8Gi
+    subPath: packages
+    mountPath: /munki_repo
+    # annotations: {}
+
+# service:
+#   type: ClusterIP
+#   port: 5432
+#   externalIPs: []
+  ## Manually set NodePort value
+  ## Requires service.type: NodePort
+  # nodePort:
+
+# networkPolicy:
+#   ## Enable creation of NetworkPolicy resources.
+#   ##
+#   enabled: false
+
+#   ## The Policy model to apply. When set to false, only pods with the correct
+#   ## client label will have network access to the port PostgreSQL is listening
+#   ## on. When true, PostgreSQL will accept connections from any source
+#   ## (with the correct destination port).
+#   ##
+#   allowExternal: true
+
+# ## Node labels and tolerations for pod assignment
+# ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+# ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+# nodeSelector: {}
+# tolerations: []
+# affinity: {}
+
+# # Override default liveness & readiness probes
+# probes:
+#   liveness:
+#     initialDelay: 60
+#     timeoutSeconds: 5
+#     failureThreshold: 6
+#   readiness:
+#     initialDelay: 5
+#     timeoutSeconds: 3
+#     periodSeconds: 5
+# ## Annotations for the deployment and nodes.
+# deploymentAnnotations: {}
+# podAnnotations: {}
+
+# ## Deployment pods replace strategy
+# ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+# # strategy: {}
